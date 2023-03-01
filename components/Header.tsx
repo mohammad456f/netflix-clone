@@ -15,14 +15,15 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <header className={`${isScrolled && "bg-[#141414]"}`}>
+    <header className={`${isScrolled && "bg-black bg-none"}`}>
       <div className="flex items-center gap-x-2 md:gap-x-10">
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
           width={100}
-          height={100}
+          height={27}
           className="cursor-pointer"
           alt="netflix-logo"
+          priority={true}
         />
         <ul className="hidden gap-x-4 md:flex">
           <li className="headerLink">Home</li>

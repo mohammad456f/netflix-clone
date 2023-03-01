@@ -4,15 +4,15 @@
 
 @layer base {
   body {
-    @apply bg-[#141414] text-white;
+    @apply bg-black text-white;
   }
   header {
-    @apply fixed top-0 z-50 w-full flex items-center justify-between p-4 lg:px-10 lg:py-6;
+    @apply fixed top-0 z-50 w-full flex items-center justify-between p-4 h-16 bg-gradient-to-b from-gray-900 to-gray-400/10;
   }
 }
 
 @layer components {
   .headerLink {
-    @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition duration-[0.4s] hover:text-[#b3b3b3];
+    @apply cursor-pointer text-base font-medium text-[#e5e5e5] transition duration-[0.4s] hover:text-[#b3b3b3];
   }
 }
