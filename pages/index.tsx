@@ -1,8 +1,9 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import Banner from "../components/Banner";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import ImageSlider from "../components/ImageSlider";
+import Row from "../components/Row";
 import { Movie } from "../typings";
 import requests from "../utils/requests";
 
@@ -35,15 +36,16 @@ const Home = ({
       </Head>
       <Header />
       <main>
-        <Banner netflixOriginals={netflixOriginals} />
-        <section>
-          {/* Row */}
-          {/* Row */}
-          {/* Row */}
-          {/* Row */}
-          {/* Row */}
-          {/* Row */}
-          {/* Row */}
+        <ImageSlider slides={netflixOriginals} />
+        <section className="pl-4">
+          <Row title="Trending Now" movies={trendingNow} />
+          <Row title="Top Rated" movies={topRated} />
+          <Row title="Action Thrillers" movies={actionMovies} />
+          {/* My List Component*/}
+          <Row title="Comedies" movies={comedyMovies} />
+          <Row title="Scary Movies" movies={horrorMovies} />
+          <Row title="Romance Movies" movies={romanceMovies} />
+          <Row title="Documentaries" movies={documentaries} />
         </section>
         {/* Modal */}
       </main>
