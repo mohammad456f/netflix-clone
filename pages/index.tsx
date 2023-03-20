@@ -37,7 +37,7 @@ const Home = ({
       <Header />
       <main>
         <ImageSlider slides={netflixOriginals} />
-        <section className="pl-4">
+        <section className="pl-4 mb-14">
           <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />

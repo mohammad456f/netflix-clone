@@ -23,14 +23,13 @@ const Header = () => {
           height={27}
           className="cursor-pointer"
           alt="netflix-logo"
-          priority={true}
         />
         <ul className="hidden gap-x-4 md:flex">
-          <li className="headerLink">Home</li>
-          <li className="headerLink">TV Shows</li>
-          <li className="headerLink">Movies</li>
-          <li className="headerLink">New & Popular</li>
-          <li className="headerLink">My List</li>
+          <li className="headerLink-custom">Home</li>
+          <li className="headerLink-custom">TV Shows</li>
+          <li className="headerLink-custom">Movies</li>
+          <li className="headerLink-custom">New & Popular</li>
+          <li className="headerLink-custom">My List</li>
         </ul>
       </div>
       <div className="flex items-center gap-4 text-sm font-light">

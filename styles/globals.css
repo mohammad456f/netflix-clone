@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-black text-white;
+    @apply bg-black text-white scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-transparent;
   }
   header {
     @apply fixed top-0 z-50 w-full flex items-center justify-between p-4 h-16 bg-gradient-to-b from-gray-900 to-gray-400/10;
@@ -12,18 +12,24 @@
 }
 
 @layer components {
-  .headerLink {
-    @apply cursor-pointer text-base font-medium text-[#e5e5e5] transition duration-[0.4s] hover:text-[#b3b3b3];
+  .headerLink-custom {
+    @apply cursor-pointer text-base font-medium text-[#e5e5e5] delay-100 duration-300 transition-all ease-in-out hover:text-[#b3b3b3] hover:scale-105;
+  }
+  .transition-custom {
+    @apply delay-100 duration-300 transition-all ease-in-out;
+  }
+  .input-custom {
+    @apply w-full rounded py-3 px-5 text-white bg-[#333] placeholder-[gray] outline-none focus:bg-[#454545] text-lg;
   }
 }
 
 @layer utilities {
-  .hide-scrollbar::-webkit-scrollbar {
+  .hide-scrollbar-custom::-webkit-scrollbar {
     display: none;
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
-  .hide-scrollbar {
+  .hide-scrollbar-custom {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }

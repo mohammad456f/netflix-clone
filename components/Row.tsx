@@ -56,7 +56,7 @@ const Row = ({ title, movies }: Props) => {
 
       {/* Row Except Title */}
       <div
-        className="relative h-28 sm:h-36"
+        className="relative"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
@@ -72,7 +72,7 @@ const Row = ({ title, movies }: Props) => {
         <div
           className={`absolute ${
             isEndScroll ? "hidden" : isHovering ? "" : "hidden"
-          } z-10 top-1/2 transform -translate-y-1/2 right-0 bg-gray-500/60 rounded-full p-1 sm:p-3 text-white text-xl cursor-pointer transition hover:scale-110`}
+          } z-10 top-1/2 transform -translate-y-1/2 right-2 bg-gray-500/60 rounded-full p-1 sm:p-3 text-white text-xl cursor-pointer transition hover:scale-110`}
           onClick={() => scrollButtonClickHandler("forward")}
         >
           <MdOutlineArrowForwardIos />
@@ -80,7 +80,7 @@ const Row = ({ title, movies }: Props) => {
 
         {/* Movies */}
         <div
-          className="flex gap-3 overflow-y-hidden hide-scrollbar"
+          className="flex gap-3 overflow-x-scroll hide-scrollbar-custom"
           ref={moviesContainerRef}
           onScroll={scrollHandler}
         >

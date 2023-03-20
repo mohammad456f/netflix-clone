@@ -31,7 +31,7 @@ const ImageSlider = ({ slides }: Props) => {
           </button>
         </div>
         <div
-          className="absolute -z-20 top-0 left-0 w-full h-full bg-center bg-cover transition-all duration-300 ease-in-out"
+          className="absolute -z-20 top-0 left-0 w-full h-full bg-center bg-cover transition-custom"
           style={{
             backgroundImage: `url(${baseUrl}${slides[currentIndex].backdrop_path})`,
           }}
@@ -45,7 +45,7 @@ const ImageSlider = ({ slides }: Props) => {
           }}
         ></div>
         <div className="flex absolute right-4 sm:right-10 bottom-14 gap-2">
-          <div className="text-xl sm:text-4xl bg-gray-500/70 rounded-full p-3 cursor-pointer text-gray-300 hover:text-white hover:scale-105 transition">
+          <div className="text-xl sm:text-4xl bg-gray-500/70 rounded-full p-3 cursor-pointer text-gray-300 hover:text-white hover:scale-105 transition-custom">
             <MdOutlineArrowBackIos
               onClick={() =>
                 setCurrentIndex((prev) =>
@@ -54,7 +54,7 @@ const ImageSlider = ({ slides }: Props) => {
               }
             />
           </div>
-          <div className="text-xl sm:text-4xl bg-gray-500/70 rounded-full p-3 cursor-pointer text-gray-300 hover:text-white hover:scale-105 transition">
+          <div className="text-xl sm:text-4xl bg-gray-500/70 rounded-full p-3 cursor-pointer text-gray-300 hover:text-white hover:scale-105 transition-custom">
             <MdOutlineArrowForwardIos
               onClick={() =>
                 setCurrentIndex((prev) =>
