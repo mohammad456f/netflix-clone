@@ -1,7 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import Spinner from "../components/Spinner";
+import useAuth from "../hooks/useAuth";
 
 interface Inputs {
   email: string;
@@ -9,18 +13,19 @@ interface Inputs {
 }
 
 const login = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
-    if (login) {
-      // await signIn(email, password);
-    } else {
-      // await signUp(email, password);
-    }
+    useAuth({ login, email, password, setLoading, dispatch, router });
   };
 
   return (
@@ -81,17 +86,38 @@ const login = () => {
         </div>
 
         {/* Form Buttons */}
-        <button
-          className="w-full rounded bg-[#e50914] py-3 font-semibold"
-          onClick={() => setLogin(true)}
-        >
-          Sign In
-        </button>
         <div>
-          <span className="text-gray-400">New to netflix? </span>
-          <button className="hover:underline" onClick={() => setLogin(false)}>
-            Sign up
+          {/* Sign In button */}
+          <button
+            className={`relative w-full rounded ${
+              loading && login ? "bg-gray-500" : "bg-[#e50914]"
+            } py-3 font-semibold`}
+            onClick={() => setLogin(true)}
+          >
+            {loading && login ? (
+              <Spinner className="absolute inset-0 flex items-center justify-center" />
+            ) : (
+              ""
+            )}
+            <span className={`${loading && login ? "text-gray-400" : ""}`}>
+              Sign In
+            </span>
           </button>
+
+          {/* Sign Up button */}
+          <div>
+            <span className="text-gray-400">New to netflix?</span>
+            <button onClick={() => setLogin(false)} className="relative p-2">
+              {loading && !login ? (
+                <Spinner className="absolute inset-0 flex items-center justify-center" />
+              ) : (
+                ""
+              )}
+              <span className={`${loading && !login ? "text-gray-500" : ""}`}>
+                Sign up
+              </span>
+            </button>
+          </div>
         </div>
       </form>
     </div>

@@ -7,13 +7,13 @@
     @apply bg-black text-white scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-transparent;
   }
   header {
-    @apply fixed top-0 z-50 w-full flex items-center justify-between p-4 h-16 bg-gradient-to-b from-gray-900 to-gray-400/10;
+    @apply fixed top-0 z-50 w-full flex items-center justify-between p-4 h-16 bg-gradient-to-b from-gray-900 to-gray-500/20;
   }
 }
 
 @layer components {
   .headerLink-custom {
-    @apply cursor-pointer text-base font-medium text-[#e5e5e5] delay-100 duration-300 transition-all ease-in-out hover:text-[#b3b3b3] hover:scale-105;
+    @apply cursor-pointer text-base font-medium text-[#e5e5e5] transition-custom hover:text-[#b3b3b3] hover:scale-105;
   }
   .transition-custom {
     @apply delay-100 duration-300 transition-all ease-in-out;

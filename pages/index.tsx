@@ -6,6 +6,10 @@ import ImageSlider from "../components/ImageSlider";
 import Row from "../components/Row";
 import { Movie } from "../typings";
 import requests from "../utils/requests";
+import type { RootState } from "../app/store";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import Modal from "../components/Modal";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -28,6 +32,14 @@ const Home = ({
   romanceMovies,
   documentaries,
 }: Props) => {
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.loginStatus.value.isLoggedIn
+  );
+  const userId = useSelector(
+    (state: RootState) => state.loginStatus.value.userId
+  );
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
       <Head>
@@ -36,7 +48,7 @@ const Home = ({
       </Head>
       <Header />
       <main>
-        <ImageSlider slides={netflixOriginals} />
+        <ImageSlider slides={topRated} />
         <section className="pl-4 mb-14">
           <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
@@ -48,6 +60,7 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
         </section>
         {/* Modal */}
+        {showModal && <Modal />}
       </main>
       <Footer />
     </div>

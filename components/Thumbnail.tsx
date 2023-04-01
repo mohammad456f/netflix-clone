@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Movie } from "../typings";
 import { FaImdb } from "react-icons/fa";
-
+import { baseUrlThumbnail } from "../constants/movie";
 interface Props {
   movie: Movie;
 }
@@ -17,9 +17,7 @@ const Thumbnail = ({ movie }: Props) => {
     >
       {/* Image of movie */}
       <Image
-        src={`https://image.tmdb.org/t/p/w500${
-          movie.backdrop_path || movie.poster_path
-        }`}
+        src={`${baseUrlThumbnail}${movie.backdrop_path || movie.poster_path}`}
         fill
         alt="movie"
         className="object-cover rounded -z-20"
@@ -41,7 +39,7 @@ const Thumbnail = ({ movie }: Props) => {
       {/* Movie detail show during hovering */}
       <div
         className={`absolute left-2 bottom-2 opacity-0 transition-custom ${
-          isHover ? "opacity-100" : ""
+          isHover && "opacity-100"
         } text-xs sm:text-sm font-bold space-y-1`}
       >
         <p>{movie.title || movie.name}</p>
