@@ -9,7 +9,7 @@ const handler: NextApiHandler = async (req, res) => {
     email: email,
   });
   if (findUser === null) {
-    const users = await collection.insertOne({
+    await collection.insertOne({
       email: email,
       password: password,
     });

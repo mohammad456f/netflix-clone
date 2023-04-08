@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loginStatusReducer from "../features/loginStatus/loginStatusSlice";
+import showModalReducer from "../features/showModal/showModalSlice";
+import currentMovieReducer from "../features/currentMovie/currentMovieSlice";
+import userMoviesListReducer from "../features/userMoviesList/userMoviesListSlice";
 
 export const store = configureStore({
   reducer: {
     loginStatus: loginStatusReducer,
+    showModal: showModalReducer,
+    currentMovie: currentMovieReducer,
+    userMoviesList: userMoviesListReducer,
   },
 });
 

@@ -6,6 +6,9 @@ import {
 import { baseUrl } from "../constants/movie";
 import { Movie } from "../typings";
 import { BsFillPlayFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { toggleShowModal } from "../features/showModal/showModalSlice";
+import { setCurrentMovie } from "../features/currentMovie/currentMovieSlice";
 
 interface Props {
   slides: Movie[];
@@ -13,6 +16,12 @@ interface Props {
 
 const ImageSlider = ({ slides }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(toggleShowModal());
+    dispatch(setCurrentMovie(slides[currentIndex]));
+  };
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -23,13 +32,21 @@ const ImageSlider = ({ slides }: Props) => {
   return (
     <>
       <div className="relative w-full h-screen flex justify-between items-center">
-        <div className="ml-4 hidden sm:block">
-          <h1 className="font-bold text-2xl">{slides[currentIndex].title}</h1>
-          <button className="flex items-center mt-4 py-2 px-4 rounded text-black bg-white font-bold">
-            <BsFillPlayFill className="text-3xl" />
-            <span>Play</span>
+        {/* Title of the movie and play button */}
+        <div className="ml-4">
+          <h1 className="font-bold text-base sm:text-2xl max-w-[40vw]">
+            {slides[currentIndex].title}
+          </h1>
+          <button
+            className="flex items-center mt-4 py-1 px-2 sm:py-2 sm:px-4 rounded text-black bg-white font-bold"
+            onClick={handleClick}
+          >
+            <BsFillPlayFill className="text-xl sm:text-3xl" />
+            <span className="text-base sm:text-xl">Play</span>
           </button>
         </div>
+
+        {/* Image of the slider */}
         <div
           className="absolute -z-20 top-0 left-0 w-full h-full bg-center bg-cover transition-custom"
           style={{
@@ -37,13 +54,17 @@ const ImageSlider = ({ slides }: Props) => {
           }}
           id="slider-image"
         ></div>
+
+        {/* A shadow on top of the image(left side) */}
         <div
-          className="hidden sm:block absolute -z-10 top-0 left-0 w-full h-full"
+          className="absolute -z-10 top-0 left-0 w-full h-full"
           style={{
             background:
-              "linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0) 35%)",
+              "linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 50%)",
           }}
         ></div>
+
+        {/* Back and Forth buttons for the image slider */}
         <div className="flex absolute right-4 sm:right-10 bottom-14 gap-2">
           <div className="text-xl sm:text-4xl bg-gray-500/70 rounded-full p-3 cursor-pointer text-gray-300 hover:text-white hover:scale-105 transition-custom">
             <MdOutlineArrowBackIos

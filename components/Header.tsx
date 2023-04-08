@@ -8,6 +8,7 @@ import type { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
 import { RxAvatar } from "react-icons/rx";
 import { userLogout } from "../features/loginStatus/loginStatusSlice";
+import MuiModal from "@mui/material/Modal";
 
 const Header = () => {
   const isLoggedIn = useSelector(
@@ -53,6 +54,7 @@ const Header = () => {
         <HiBell className="w-6 h-6" />
         {isLoggedIn && (
           <>
+            {/* Avatar indicator for user sign in */}
             <RxAvatar
               size={36}
               className="cursor-pointer"
@@ -60,19 +62,16 @@ const Header = () => {
             />
 
             {/* Drop down Menu  */}
-            <div
-              className={`absolute border-2 border-red-500 rounded-lg -bottom-8 p-2 bg-black transition-custom cursor-pointer
-              ${showMenu ? "right-4" : "-right-20"}`}
-            >
-              <ul>
+            <MuiModal open={showMenu} onClose={() => setShowMenu(false)}>
+              <ul className="absolute right-4 top-14 bg-red-500 p-2 rounded">
                 <li
-                  className="font-bold"
+                  className="font-semibold cursor-pointer"
                   onClick={() => dispatch(userLogout())}
                 >
                   Log out
                 </li>
               </ul>
-            </div>
+            </MuiModal>
           </>
         )}
         {isLoggedIn || (

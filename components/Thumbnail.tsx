@@ -3,17 +3,29 @@ import { useState } from "react";
 import { Movie } from "../typings";
 import { FaImdb } from "react-icons/fa";
 import { baseUrlThumbnail } from "../constants/movie";
+import { useDispatch } from "react-redux";
+import { toggleShowModal } from "../features/showModal/showModalSlice";
+import { setCurrentMovie } from "../features/currentMovie/currentMovieSlice";
+
 interface Props {
   movie: Movie;
 }
 
 const Thumbnail = ({ movie }: Props) => {
   const [isHover, setIsHover] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(toggleShowModal());
+    dispatch(setCurrentMovie(movie));
+  };
+
   return (
     <div
       className="relative p-2 h-28 min-w-[180px] sm:h-36 sm:min-w-[230px] cursor-pointer transition-custom sm:hover:scale-105"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
+      onClick={handleClick}
     >
       {/* Image of movie */}
       <Image

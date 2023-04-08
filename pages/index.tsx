@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -8,8 +8,10 @@ import { Movie } from "../typings";
 import requests from "../utils/requests";
 import type { RootState } from "../app/store";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import Modal from "../components/Modal";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUserMoviesList } from "../features/userMoviesList/userMoviesListSlice";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -38,7 +40,27 @@ const Home = ({
   const userId = useSelector(
     (state: RootState) => state.loginStatus.value.userId
   );
-  const [showModal, setShowModal] = useState(false);
+  const showModal = useSelector((state: RootState) => state.showModal.value);
+  const userMoviesList = useSelector(
+    (state: RootState) => state.userMoviesList.value
+  );
+
+  const dispatch = useDispatch();
+
+  if (isLoggedIn) {
+    useEffect(() => {
+      const fetchUserMovies = async () => {
+        await fetch("api/readUserMovie", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId }),
+        })
+          .then((res) => res.json())
+          .then((data) => dispatch(setUserMoviesList(data.movies)));
+      };
+      fetchUserMovies();
+    }, [isLoggedIn]);
+  }
 
   return (
     <div>
@@ -54,6 +76,9 @@ const Home = ({
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
           {/* My List Component*/}
+          {isLoggedIn && userMoviesList && (
+            <Row title="My List" movies={userMoviesList} />
+          )}
           <Row title="Comedies" movies={comedyMovies} />
           <Row title="Scary Movies" movies={horrorMovies} />
           <Row title="Romance Movies" movies={romanceMovies} />
