@@ -13,12 +13,10 @@ export const loginStatusSlice = createSlice({
   initialState,
   reducers: {
     userLogin: (state, action: PayloadAction<string>) => {
-      state.value.isLoggedIn = true;
-      state.value.userId = action.payload;
+      state.value = { isLoggedIn: true, userId: action.payload };
     },
     userLogout: (state) => {
-      state.value.isLoggedIn = false;
-      state.value.userId = "";
+      state.value = { isLoggedIn: false, userId: "" };
     },
   },
 });

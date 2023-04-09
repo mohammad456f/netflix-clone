@@ -1,5 +1,6 @@
 import type { NextApiHandler } from "next";
 import { MongoClient, ObjectId } from "mongodb";
+import { Movie } from "../../typings";
 
 const handler: NextApiHandler = async (req, res) => {
   const { userId, movie } = req.body;
@@ -10,11 +11,11 @@ const handler: NextApiHandler = async (req, res) => {
   };
   const findUser = await collection.findOne(query);
 
-  const updateMoviesId = findUser?.movies.filter(
-    (element: any) => !(element === movie)
+  const updateMovies = findUser?.movies.filter(
+    (element: any) => !(element.id === movie.id)
   );
 
-  const updateUser = { ...findUser, moviesId: updateMoviesId };
+  const updateUser = { ...findUser, movies: updateMovies };
 
   await collection.updateOne(query, {
     $set: updateUser,

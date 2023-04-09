@@ -69,7 +69,7 @@ const Modal = () => {
     await fetch("/api/deleteUserMovie", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, movieId: currentMovie?.id }),
+      body: JSON.stringify({ userId, movie: currentMovie?.id }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -79,7 +79,9 @@ const Modal = () => {
           if (userMoviesList && currentMovie) {
             dispatch(
               setUserMoviesList(
-                userMoviesList?.filter((movie) => !(movie === currentMovie))
+                userMoviesList?.filter(
+                  (movie) => !(movie.id === currentMovie.id)
+                )
               )
             );
           }

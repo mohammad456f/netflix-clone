@@ -47,8 +47,8 @@ const Home = ({
 
   const dispatch = useDispatch();
 
-  if (isLoggedIn) {
-    useEffect(() => {
+  useEffect(() => {
+    if (isLoggedIn) {
       const fetchUserMovies = async () => {
         await fetch("api/readUserMovie", {
           method: "POST",
@@ -59,8 +59,8 @@ const Home = ({
           .then((data) => dispatch(setUserMoviesList(data.movies)));
       };
       fetchUserMovies();
-    }, [isLoggedIn]);
-  }
+    }
+  }, [isLoggedIn]);
 
   return (
     <div>
@@ -77,7 +77,7 @@ const Home = ({
           <Row title="Action Thrillers" movies={actionMovies} />
           {/* My List Component*/}
           {isLoggedIn && userMoviesList && (
-            <Row title="My List" movies={userMoviesList} />
+            <Row title="My List" movies={userMoviesList} id="my-list" />
           )}
           <Row title="Comedies" movies={comedyMovies} />
           <Row title="Scary Movies" movies={horrorMovies} />

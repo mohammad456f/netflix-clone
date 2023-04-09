@@ -9,9 +9,10 @@ import Thumbnail from "./Thumbnail";
 interface Props {
   title: string;
   movies: Movie[];
+  id?: string;
 }
 
-const Row = ({ title, movies }: Props) => {
+const Row = ({ title, movies, id }: Props) => {
   const moviesContainerRef = useRef<HTMLDivElement>(null);
   const [isScroll, setIsScroll] = useState(false);
   const [isEndScroll, setIsEndScroll] = useState(false);
@@ -50,7 +51,7 @@ const Row = ({ title, movies }: Props) => {
   };
 
   return (
-    <div className="mt-8">
+    <div className="mt-8" id={id}>
       {/* Row Title */}
       <h2 className="font-bold cursor-pointer mb-3">{title}</h2>
 

@@ -14,9 +14,18 @@ const Header = () => {
   const isLoggedIn = useSelector(
     (state: RootState) => state.loginStatus.value.isLoggedIn
   );
+
   const [showMenu, setShowMenu] = useState(false);
-  const dispatch = useDispatch();
   const [isScrolled, setIsScrolled] = useState(false);
+  const dispatch = useDispatch();
+
+  const scrollToMyList = () => {
+    const myListElement = document.getElementById("my-list");
+    const myListOffset = myListElement?.offsetTop
+      ? myListElement?.offsetTop - 60
+      : 0;
+    window.scrollTo({ top: myListOffset, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +52,9 @@ const Header = () => {
           <li className="headerLink-custom">TV Shows</li>
           <li className="headerLink-custom">Movies</li>
           <li className="headerLink-custom">New & Popular</li>
-          <li className="headerLink-custom">My List</li>
+          <li className="headerLink-custom">
+            <span onClick={scrollToMyList}>My List</span>
+          </li>
         </ul>
       </div>
 
