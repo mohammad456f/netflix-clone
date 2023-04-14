@@ -13,6 +13,9 @@ const Header = () => {
   const isLoggedIn = useSelector(
     (state: RootState) => state.loginStatus.value.isLoggedIn
   );
+  const userMoviesList = useSelector(
+    (state: RootState) => state.userMoviesList.value
+  );
 
   const [showMenu, setShowMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,7 +75,7 @@ const Header = () => {
               Documentary
             </span>
           </li>
-          {isLoggedIn && (
+          {userMoviesList && isLoggedIn && userMoviesList.length > 0 && (
             <li className="headerLink-custom">
               <span onClick={() => scrollTo("my-list-movies")}>My List</span>
             </li>

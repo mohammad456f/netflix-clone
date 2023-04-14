@@ -53,8 +53,11 @@ const Modal = () => {
               position: "bottom-left",
             });
           } else {
-            if (userMoviesList && currentMovie)
-              dispatch(setUserMoviesList([...userMoviesList, currentMovie]));
+            if (currentMovie) {
+              if (userMoviesList)
+                dispatch(setUserMoviesList([...userMoviesList, currentMovie]));
+              else dispatch(setUserMoviesList([currentMovie]));
+            }
           }
           setShowCheck(true);
           setAddInProgress(false);
@@ -69,7 +72,7 @@ const Modal = () => {
     await fetch("/api/deleteUserMovie", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, movie: currentMovie?.id }),
+      body: JSON.stringify({ userId, movieId: currentMovie?.id }),
     })
       .then((response) => response.json())
       .then((data) => {

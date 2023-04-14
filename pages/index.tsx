@@ -80,7 +80,7 @@ const Home = ({
             id="action-movies"
           />
           {/* My List Component*/}
-          {isLoggedIn && userMoviesList && (
+          {userMoviesList && isLoggedIn && userMoviesList.length > 0 && (
             <Row title="My List" movies={userMoviesList} id="my-list-movies" />
           )}
           <Row title="Comedies" movies={comedyMovies} id="comedies-movies" />

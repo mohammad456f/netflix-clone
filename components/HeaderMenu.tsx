@@ -14,6 +14,10 @@ const HeaderMenu = ({ scrollTo }: Props) => {
   const isLoggedIn = useSelector(
     (state: RootState) => state.loginStatus.value.isLoggedIn
   );
+  const userMoviesList = useSelector(
+    (state: RootState) => state.userMoviesList.value
+  );
+
   const [anchorEl, setAnchorEl] = useState<null | SVGElement>(null);
   const [anchorPosition, setAnchorPosition] = useState<{
     top: number;
@@ -32,8 +36,9 @@ const HeaderMenu = ({ scrollTo }: Props) => {
 
   const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
     "& .MuiPaper-root": {
-      backgroundColor: "#686f7a",
+      backgroundColor: "#000",
       color: "#fff",
+      border: "1px solid",
       "& .MuiMenu-list": {
         padding: "0",
       },
@@ -74,7 +79,7 @@ const HeaderMenu = ({ scrollTo }: Props) => {
           Comedies
         </MenuItem>
         <Divider className="bg-red-500 h-1 !m-0" />
-        {isLoggedIn && (
+        {userMoviesList && isLoggedIn && userMoviesList.length > 0 && (
           <div>
             <MenuItem onClick={() => handleClose("my-list-movies")}>
               My List
