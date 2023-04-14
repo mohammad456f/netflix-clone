@@ -72,17 +72,29 @@ const Home = ({
       <main>
         <ImageSlider slides={topRated} />
         <section className="pl-4 mb-14">
-          <Row title="Trending Now" movies={trendingNow} />
-          <Row title="Top Rated" movies={topRated} />
-          <Row title="Action Thrillers" movies={actionMovies} />
+          <Row title="Trending Now" movies={trendingNow} id="trending-movies" />
+          <Row title="Top Rated" movies={topRated} id="top-rated-movies" />
+          <Row
+            title="Action Thrillers"
+            movies={actionMovies}
+            id="action-movies"
+          />
           {/* My List Component*/}
           {isLoggedIn && userMoviesList && (
-            <Row title="My List" movies={userMoviesList} id="my-list" />
+            <Row title="My List" movies={userMoviesList} id="my-list-movies" />
           )}
-          <Row title="Comedies" movies={comedyMovies} />
-          <Row title="Scary Movies" movies={horrorMovies} />
-          <Row title="Romance Movies" movies={romanceMovies} />
-          <Row title="Documentaries" movies={documentaries} />
+          <Row title="Comedies" movies={comedyMovies} id="comedies-movies" />
+          <Row title="Scary Movies" movies={horrorMovies} id="scary-movies" />
+          <Row
+            title="Romance Movies"
+            movies={romanceMovies}
+            id="romance-movies"
+          />
+          <Row
+            title="Documentaries"
+            movies={documentaries}
+            id="documentary-movies"
+          />
         </section>
         {/* Modal */}
         {showModal && <Modal />}

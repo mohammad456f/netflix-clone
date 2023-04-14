@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HiSearch } from "react-icons/hi";
-import { HiBell } from "react-icons/hi";
 import React from "react";
 import type { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
 import { RxAvatar } from "react-icons/rx";
 import { userLogout } from "../features/loginStatus/loginStatusSlice";
 import MuiModal from "@mui/material/Modal";
+import HeaderMenu from "./HeaderMenu";
 
 const Header = () => {
   const isLoggedIn = useSelector(
@@ -19,8 +18,9 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
 
-  const scrollToMyList = () => {
-    const myListElement = document.getElementById("my-list");
+  const scrollTo = (section: string) => {
+    const myListElement = document.getElementById(section);
+
     const myListOffset = myListElement?.offsetTop
       ? myListElement?.offsetTop - 60
       : 0;
@@ -39,40 +39,59 @@ const Header = () => {
   return (
     <header className={`${isScrolled && "bg-black bg-none"}`}>
       {/* Left side of header */}
-      <div className="flex items-center gap-x-2 md:gap-x-10">
+      <div className="flex items-center gap-x-6">
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
-          width={100}
+          width={80}
           height={27}
-          className="cursor-pointer"
           alt="netflix-logo"
         />
+
+        <HeaderMenu scrollTo={scrollTo} />
         <ul className="hidden gap-x-4 md:flex">
-          <li className="headerLink-custom">Home</li>
-          <li className="headerLink-custom">TV Shows</li>
-          <li className="headerLink-custom">Movies</li>
-          <li className="headerLink-custom">New & Popular</li>
           <li className="headerLink-custom">
-            <span onClick={scrollToMyList}>My List</span>
+            <span onClick={() => scrollTo("trending-movies")}>Trending</span>
           </li>
+          <li className="headerLink-custom">
+            <span onClick={() => scrollTo("top-rated-movies")}>Top Rated</span>
+          </li>
+          <li className="headerLink-custom">
+            <span onClick={() => scrollTo("action-movies")}>Action</span>
+          </li>
+          <li className="headerLink-custom">
+            <span onClick={() => scrollTo("comedies-movies")}>Comedies</span>
+          </li>
+          <li className="headerLink-custom">
+            <span onClick={() => scrollTo("scary-movies")}>Scary</span>
+          </li>
+          <li className="headerLink-custom">
+            <span onClick={() => scrollTo("romance-movies")}>Romance</span>
+          </li>
+          <li className="headerLink-custom">
+            <span onClick={() => scrollTo("documentary-movies")}>
+              Documentary
+            </span>
+          </li>
+          {isLoggedIn && (
+            <li className="headerLink-custom">
+              <span onClick={() => scrollTo("my-list-movies")}>My List</span>
+            </li>
+          )}
         </ul>
       </div>
 
       {/* Right side of the header */}
       <div className="flex items-center gap-4 text-sm font-light">
-        <HiSearch className="hidden sm:inline w-6 h-6" />
-        <p className="hidden lg:inline">Kids</p>
-        <HiBell className="w-6 h-6" />
         {isLoggedIn && (
           <>
             {/* Avatar indicator for user sign in */}
             <RxAvatar
-              size={36}
+              size={32}
               className="cursor-pointer"
               onClick={() => setShowMenu((prev) => !prev)}
             />
 
-            {/* Drop down Menu  */}
+            {/* Drop down Menu when user press avatar */}
             <MuiModal open={showMenu} onClose={() => setShowMenu(false)}>
               <ul className="absolute right-4 top-14 bg-red-500 p-2 rounded">
                 <li

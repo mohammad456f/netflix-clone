@@ -34,15 +34,15 @@ const ImageSlider = ({ slides }: Props) => {
       <div className="relative w-full h-screen flex justify-between items-center">
         {/* Title of the movie and play button */}
         <div className="ml-4">
-          <h1 className="font-bold text-base sm:text-2xl max-w-[40vw]">
+          <h1 className="font-bold text-base sm:text-lg max-w-[40vw]">
             {slides[currentIndex].title}
           </h1>
           <button
-            className="flex items-center mt-4 py-1 px-2 sm:py-2 sm:px-4 rounded text-black bg-white font-bold"
+            className="flex items-center mt-4 py-1 px-2 sm:py-1 sm:px-2 rounded text-black bg-white font-bold"
             onClick={handleClick}
           >
             <BsFillPlayFill className="text-xl sm:text-3xl" />
-            <span className="text-base sm:text-xl">Play</span>
+            <span className="text-base sm:text-lg">Play</span>
           </button>
         </div>
 
