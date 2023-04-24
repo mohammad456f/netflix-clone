@@ -9,6 +9,7 @@ import { VscCheck, VscMute, VscUnmute } from "react-icons/vsc";
 import ReactPlayer from "react-player";
 import { BsFillPlayFill, BsPlus, BsPauseFill } from "react-icons/bs";
 import CircularProgress from "@mui/material/CircularProgress";
+import Tooltip from "@mui/material/Tooltip";
 import { toast } from "react-toastify";
 
 const Modal = () => {
@@ -167,23 +168,25 @@ const Modal = () => {
               />
 
               {/* Buttons at the bottom of the player */}
-              <div className="absolute w-full px-5 bottom-5 flex items-center justify-between">
+              <div className="absolute w-full px-2 sm:px-5 bottom-2 sm:bottom-5 flex items-center justify-between">
                 {/* Left side buttons */}
                 <div className="flex items-center gap-2">
                   {/* Play|Pause button */}
                   <div
-                    className="flex items-center bg-white text-black rounded px-2 cursor-pointer"
+                    className="flex items-center bg-white text-black rounded px-2 py-1 sm:py-0 cursor-pointer"
                     onClick={() => setPlaying((prev) => !prev)}
                   >
                     {playing ? (
-                      <BsPauseFill className="text-4xl" />
+                      <BsPauseFill className="text-xl sm:text-4xl" />
                     ) : (
-                      <BsFillPlayFill className="text-4xl" />
+                      <BsFillPlayFill className="text-xl sm:text-4xl" />
                     )}
-                    <span>{playing ? "Pause" : "Play"}</span>
+                    <span className="text-sm sm:text-base">
+                      {playing ? "Pause" : "Play"}
+                    </span>
                   </div>
                   {/* Plus|Progress|Check button */}
-                  <div className="relative">
+                  <div>
                     {addInProgress && (
                       <CircularProgress
                         className={`absolute !text-red-500 !w-8 !h-8`}
@@ -191,15 +194,27 @@ const Modal = () => {
                     )}
 
                     {showCheck ? (
-                      <VscCheck
-                        className="rounded-full w-8 h-8 border-2 border-gray-300/70 p-1 cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
-                        onClick={checkButtonHandler}
-                      />
+                      <Tooltip
+                        title="Remove from your list"
+                        placement="top"
+                        arrow
+                      >
+                        <div>
+                          <VscCheck
+                            className="rounded-full w-8 h-8 border-2 border-gray-300/70 p-1 cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
+                            onClick={checkButtonHandler}
+                          />
+                        </div>
+                      </Tooltip>
                     ) : (
-                      <BsPlus
-                        className="rounded-full w-8 h-8 border-2 border-gray-300/70 p-px cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
-                        onClick={addButtonHandler}
-                      />
+                      <Tooltip title="Add to your list" placement="top" arrow>
+                        <div>
+                          <BsPlus
+                            className="rounded-full w-8 h-8 border-2 border-gray-300/70 p-px cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
+                            onClick={addButtonHandler}
+                          />
+                        </div>
+                      </Tooltip>
                     )}
                   </div>
                 </div>
@@ -207,15 +222,23 @@ const Modal = () => {
                 <div>
                   {/* Mute|Unmute button */}
                   {muted ? (
-                    <VscMute
-                      className="rounded-full w-8 h-8 border-2  border-gray-300/70 p-1 cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
-                      onClick={muteUnMuteButtonHandler}
-                    />
+                    <Tooltip title="Unmute" placement="top" arrow>
+                      <div>
+                        <VscMute
+                          className="rounded-full w-8 h-8 border-2  border-gray-300/70 p-1 cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
+                          onClick={muteUnMuteButtonHandler}
+                        />
+                      </div>
+                    </Tooltip>
                   ) : (
-                    <VscUnmute
-                      className="rounded-full w-8 h-8 border-2  border-gray-300/70 p-1 cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
-                      onClick={muteUnMuteButtonHandler}
-                    />
+                    <Tooltip title="Mute" placement="top" arrow>
+                      <div>
+                        <VscUnmute
+                          className="rounded-full w-8 h-8 border-2  border-gray-300/70 p-1 cursor-pointer bg-black/70 hover:bg-black/40 transition-custom"
+                          onClick={muteUnMuteButtonHandler}
+                        />
+                      </div>
+                    </Tooltip>
                   )}
                 </div>
               </div>

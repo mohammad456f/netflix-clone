@@ -22,7 +22,7 @@ const Thumbnail = ({ movie }: Props) => {
 
   return (
     <div
-      className="relative p-2 h-28 min-w-[180px] sm:h-36 sm:min-w-[230px] cursor-pointer transition-custom sm:hover:scale-105"
+      className="relative p-2 h-28 min-w-[180px] sm:h-36 sm:min-w-[230px] cursor-pointer transition-custom"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       onClick={handleClick}
@@ -52,12 +52,12 @@ const Thumbnail = ({ movie }: Props) => {
       <div
         className={`absolute left-2 bottom-2 opacity-0 transition-custom ${
           isHover && "opacity-100"
-        } text-xs sm:text-sm font-bold space-y-1`}
+        } text-xs sm:text-sm font-medium space-y-1`}
       >
         <p>{movie.title || movie.name}</p>
         <p>{movie.release_date?.substring(0, 4)}</p>
         <div className="flex items-center gap-1">
-          <FaImdb className="text-xl" />
+          <FaImdb className="text-base sm:text-lg" />
           <span>{movie.vote_average.toFixed(1)}</span>
         </div>
       </div>

@@ -8,8 +8,13 @@ import { RxAvatar } from "react-icons/rx";
 import { userLogout } from "../features/loginStatus/loginStatusSlice";
 import MuiModal from "@mui/material/Modal";
 import HeaderMenu from "./HeaderMenu";
+import { FaSearch } from "react-icons/fa";
 
-const Header = () => {
+interface Props {
+  setShowSearchModal: (showSearchModal: boolean) => void;
+}
+
+const Header = ({ setShowSearchModal }: Props) => {
   const isLoggedIn = useSelector(
     (state: RootState) => state.loginStatus.value.isLoggedIn
   );
@@ -42,7 +47,7 @@ const Header = () => {
   return (
     <header className={`${isScrolled && "bg-black bg-none"}`}>
       {/* Left side of header */}
-      <div className="flex items-center gap-x-6">
+      <div className="flex items-center gap-x-4">
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
           width={80}
@@ -51,6 +56,7 @@ const Header = () => {
         />
 
         <HeaderMenu scrollTo={scrollTo} />
+
         <ul className="hidden gap-x-4 md:flex">
           <li className="headerLink-custom">
             <span onClick={() => scrollTo("trending-movies")}>Trending</span>
@@ -85,6 +91,11 @@ const Header = () => {
 
       {/* Right side of the header */}
       <div className="flex items-center gap-4 text-sm font-light">
+        <FaSearch
+          size={22}
+          className="cursor-pointer"
+          onClick={() => setShowSearchModal(true)}
+        />
         {isLoggedIn && (
           <>
             {/* Avatar indicator for user sign in */}

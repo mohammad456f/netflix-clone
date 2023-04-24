@@ -13,7 +13,7 @@
 
 @layer components {
   .headerLink-custom {
-    @apply cursor-pointer text-sm font-medium text-[#e5e5e5] transition-custom hover:text-[#b3b3b3] hover:scale-105;
+    @apply cursor-pointer text-sm font-medium text-[#e5e5e5] transition-custom hover:text-red-600 hover:scale-105;
   }
   .transition-custom {
     @apply delay-100 duration-300 transition-all ease-in-out;

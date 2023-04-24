@@ -9,9 +9,10 @@ import requests from "../utils/requests";
 import type { RootState } from "../app/store";
 import { useSelector } from "react-redux";
 import Modal from "../components/Modal";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUserMoviesList } from "../features/userMoviesList/userMoviesListSlice";
+import SearchModal from "../components/SearchModal";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -34,6 +35,7 @@ const Home = ({
   romanceMovies,
   documentaries,
 }: Props) => {
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const isLoggedIn = useSelector(
     (state: RootState) => state.loginStatus.value.isLoggedIn
   );
@@ -68,7 +70,7 @@ const Home = ({
         <title>Home - Netflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header setShowSearchModal={setShowSearchModal} />
       <main>
         <ImageSlider slides={topRated} />
         <section className="pl-4 mb-14">
@@ -97,6 +99,21 @@ const Home = ({
           />
         </section>
         {/* Modal */}
+        {showSearchModal && (
+          <SearchModal
+            setShowSearchModal={setShowSearchModal}
+            allMovies={[
+              ...netflixOriginals,
+              ...trendingNow,
+              ...topRated,
+              ...actionMovies,
+              ...comedyMovies,
+              ...horrorMovies,
+              ...romanceMovies,
+              ...documentaries,
+            ]}
+          />
+        )}
         {showModal && <Modal />}
       </main>
       <Footer />
