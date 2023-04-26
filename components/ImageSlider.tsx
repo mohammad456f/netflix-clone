@@ -7,7 +7,7 @@ import { baseUrl } from "../constants/movie";
 import { Movie } from "../typings";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { toggleShowModal } from "../features/showModal/showModalSlice";
+import { setModal } from "../features/showModal/showModalSlice";
 import { setCurrentMovie } from "../features/currentMovie/currentMovieSlice";
 
 interface Props {
@@ -19,7 +19,7 @@ const ImageSlider = ({ slides }: Props) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(toggleShowModal());
+    dispatch(setModal(true));
     dispatch(setCurrentMovie(slides[currentIndex]));
   };
 
