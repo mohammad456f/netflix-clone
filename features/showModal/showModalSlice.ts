@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ShowModalStatus {
   value: boolean;
@@ -12,13 +13,13 @@ export const showModalSlice = createSlice({
   name: "showModal",
   initialState,
   reducers: {
-    toggleShowModal: (state) => {
-      state.value = !state.value;
+    setModal: (state, action: PayloadAction<boolean>) => {
+      state.value = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleShowModal } = showModalSlice.actions;
+export const { setModal } = showModalSlice.actions;
 
 export default showModalSlice.reducer;

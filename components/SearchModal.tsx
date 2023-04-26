@@ -68,7 +68,7 @@ const SearchModal = ({ setShowSearchModal, allMovies }: Props) => {
               />
               <div>
                 <FaSearch
-                  className="cursor-pointer bg-red-600 h-10 text-4xl p-2 rounded"
+                  className="cursor-pointer bg-red-600 h-10 text-4xl p-2 rounded rounded-tl-none rounded-bl-none"
                   onClick={handleSearch}
                 />
               </div>

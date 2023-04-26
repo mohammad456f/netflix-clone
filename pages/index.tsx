@@ -114,7 +114,7 @@ const Home = ({
             ]}
           />
         )}
-        {showModal && <Modal />}
+        <Modal />
       </main>
       <Footer />
     </div>

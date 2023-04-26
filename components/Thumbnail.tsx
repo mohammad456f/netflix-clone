@@ -4,7 +4,7 @@ import { Movie } from "../typings";
 import { FaImdb } from "react-icons/fa";
 import { baseUrlThumbnail } from "../constants/movie";
 import { useDispatch } from "react-redux";
-import { toggleShowModal } from "../features/showModal/showModalSlice";
+import { setModal } from "../features/showModal/showModalSlice";
 import { setCurrentMovie } from "../features/currentMovie/currentMovieSlice";
 
 interface Props {
@@ -16,8 +16,8 @@ const Thumbnail = ({ movie }: Props) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(toggleShowModal());
     dispatch(setCurrentMovie(movie));
+    dispatch(setModal(true));
   };
 
   return (
