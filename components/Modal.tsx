@@ -99,6 +99,7 @@ const Modal = () => {
 
   useEffect(() => {
     setTrailerKey(undefined);
+    setShowCheck(false);
     if (showModal) {
       const fetchTrailer = async () => {
         await fetch(

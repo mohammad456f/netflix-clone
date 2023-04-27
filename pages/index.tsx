@@ -12,7 +12,7 @@ import Modal from "../components/Modal";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUserMoviesList } from "../features/userMoviesList/userMoviesListSlice";
-import SearchModal from "../components/SearchModal";
+import SearchModal from "../components/Search/SearchModal";
 
 interface Props {
   netflixOriginals: Movie[];

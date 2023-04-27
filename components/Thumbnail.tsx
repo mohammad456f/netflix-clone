@@ -55,7 +55,11 @@ const Thumbnail = ({ movie }: Props) => {
         } text-xs sm:text-sm font-medium space-y-1`}
       >
         <p>{movie.title || movie.name}</p>
-        <p>{movie.release_date?.substring(0, 4)}</p>
+        <p>
+          {movie.release_date
+            ? movie.release_date.substring(0, 4)
+            : movie.first_air_date.substring(0, 4)}
+        </p>
         <div className="flex items-center gap-1">
           <FaImdb className="text-base sm:text-lg" />
           <span>{movie.vote_average.toFixed(1)}</span>
