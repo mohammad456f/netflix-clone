@@ -67,7 +67,7 @@ const SearchModal = ({ setShowSearchModal, allMovies }: Props) => {
           },
         }}
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto outline-none">
           {/* Input and close button and filter part */}
           <div className="px-4 sm:px-6">
             {/* Input and close button part */}

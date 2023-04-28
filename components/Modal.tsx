@@ -51,7 +51,7 @@ const Modal = () => {
         .then((data) => {
           if (data.message !== "successful") {
             toast.info("This movie already exists on your list", {
-              position: "bottom-left",
+              position: "top-center",
             });
           } else {
             if (currentMovie) {
@@ -64,7 +64,7 @@ const Modal = () => {
           setAddInProgress(false);
         });
     } else {
-      toast.info("You're not signed in", { position: "bottom-left" });
+      toast.info("You're not signed in", { position: "top-center" });
     }
   };
 
