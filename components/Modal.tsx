@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense } from "react";
 import MuiModal from "@mui/material/Modal";
 import type { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +7,7 @@ import { setModal } from "../features/showModal/showModalSlice";
 import { setUserMoviesList } from "../features/userMoviesList/userMoviesListSlice";
 import { HiXCircle } from "react-icons/hi";
 import { VscCheck, VscMute, VscUnmute } from "react-icons/vsc";
-import ReactPlayer from "react-player";
+const ReactPlayer = lazy(() => import("react-player"));
 import { BsFillPlayFill, BsPlus, BsPauseFill } from "react-icons/bs";
 import CircularProgress from "@mui/material/CircularProgress";
 import Tooltip from "@mui/material/Tooltip";
@@ -168,17 +169,19 @@ const Modal = () => {
               {/* Video and related buttons that lay out absolutely on top of video */}
               <div className="relative pb-[56.25%]">
                 {/* Video Player */}
-                <ReactPlayer
-                  url={`https://www.youtube.com/watch?v=${trailerKey}`}
-                  width="100%"
-                  height="100%"
-                  className="absolute top-0 left-0"
-                  playing={playing}
-                  onPlay={() => setPlaying(true)}
-                  onPause={() => setPlaying(false)}
-                  volume={0.6}
-                  muted={muted}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ReactPlayer
+                    url={`https://www.youtube.com/watch?v=${trailerKey}`}
+                    width="100%"
+                    height="100%"
+                    className="absolute top-0 left-0"
+                    playing={playing}
+                    onPlay={() => setPlaying(true)}
+                    onPause={() => setPlaying(false)}
+                    volume={0.6}
+                    muted={muted}
+                  />
+                </Suspense>
 
                 {/* Close button */}
                 <HiXCircle
