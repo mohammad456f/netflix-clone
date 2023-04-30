@@ -20,7 +20,7 @@ const Filter = ({
 }: Props) => {
   const [showFilter, setShowFilter] = useState(false);
   const [sliderValue, setSliderValue] = useState([0, 100]);
-  const isMountAndFirstRenderOver = useRef(4);
+  const isMountOver = useRef(2);
 
   const handleChange = (
     event: Event,
@@ -56,9 +56,9 @@ const Filter = ({
   };
 
   useEffect(() => {
-    if (isMountAndFirstRenderOver.current > 1) {
-      console.log(isMountAndFirstRenderOver.current);
-      isMountAndFirstRenderOver.current -= 1;
+    if (isMountOver.current >= 1) {
+      console.log(isMountOver.current);
+      isMountOver.current -= 1;
       return;
     }
     setFilterYear([
@@ -68,9 +68,9 @@ const Filter = ({
   }, [sliderValue]);
 
   useEffect(() => {
-    if (isMountAndFirstRenderOver.current >= 1) {
-      console.log(isMountAndFirstRenderOver.current);
-      isMountAndFirstRenderOver.current -= 1;
+    if (isMountOver.current >= 1) {
+      console.log(isMountOver.current);
+      isMountOver.current -= 1;
       return;
     }
 
