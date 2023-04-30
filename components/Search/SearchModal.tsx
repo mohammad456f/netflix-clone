@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MuiModal from "@mui/material/Modal";
+import Skeleton from "@mui/material/Skeleton";
 import { Movie } from "../../typings";
 import { FaSearch } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
@@ -16,44 +17,50 @@ const SearchModal = ({ setShowSearchModal, allMovies }: Props) => {
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [filterYear, setFilterYear] = useState([1957, 2023]);
   const [enterPressed, setEnterPressed] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
 
-  const handleSearch = () => {
+  const movieFiltering = () => {
     const f = allMovies.filter((movie) => {
       const movieYear = movie?.release_date
         ? parseInt(movie.release_date.substring(0, 4))
         : parseInt(movie.first_air_date.substring(0, 4));
-
       const withinRange =
         movieYear >= filterYear[0] && movieYear <= filterYear[1];
-
       const movieTitle = movie.title || movie.name;
       return (
         movieTitle.toLowerCase().includes(searchMovie.toLowerCase()) &&
         withinRange
       );
     });
-
     const m = f.map((movie) => movie.title);
-    const temp = [];
-
+    const temp: Movie[] = [];
     for (let i = 0; i < f.length; i++) {
       if (m.lastIndexOf(f[i].title) === i) {
         temp.push(f[i]);
       }
     }
-
-    setFilteredMovies(temp);
-    setEnterPressed(true);
+    return temp;
   };
 
-  const handleEnterPress = () => {
-    handleSearch();
+  const handleSearch = () => {
+    setIsReady(false);
     setEnterPressed(true);
+    setFilteredMovies(movieFiltering());
   };
 
   useEffect(() => {
-    if (enterPressed) handleSearch();
-  }, [filterYear]);
+    if (enterPressed) {
+      setTimeout(() => {
+        setIsReady(true);
+        setEnterPressed(false);
+      }, 2000);
+    }
+  }, [enterPressed]);
+
+  useEffect(() => {
+    if (isFilter) handleSearch();
+  }, [isFilter]);
 
   return (
     <>
@@ -78,9 +85,7 @@ const SearchModal = ({ setShowSearchModal, allMovies }: Props) => {
                   type="text"
                   value={searchMovie}
                   onChange={(e) => setSearchMovie(e.target.value)}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" ? handleEnterPress() : ""
-                  }
+                  onKeyDown={(e) => (e.key === "Enter" ? handleSearch() : "")}
                   placeholder="Type movie name"
                   className="text-black focus:outline-none flex-grow rounded p-2 px-3  h-10"
                 />
@@ -103,18 +108,39 @@ const SearchModal = ({ setShowSearchModal, allMovies }: Props) => {
               filterYear={filterYear}
               setFilterYear={setFilterYear}
               handleSearch={handleSearch}
+              isFilter={isFilter}
+              setIsFilter={setIsFilter}
             />
           </div>
 
           {/* Show searched movies part */}
+
           <div className="mx-6 my-10 flex flex-wrap gap-5 items-center justify-center">
-            {filteredMovies.length >= 1
+            {!isReady && enterPressed && (
+              <>
+                <Skeleton
+                  variant="rounded"
+                  sx={{ bgcolor: "grey.700" }}
+                  className="h-28 min-w-[180px] sm:h-36 sm:min-w-[230px]"
+                />
+                <Skeleton
+                  variant="rounded"
+                  sx={{ bgcolor: "grey.700" }}
+                  className="h-28 min-w-[180px] sm:h-36 sm:min-w-[230px]"
+                />
+              </>
+            )}
+
+            {isReady && filteredMovies.length >= 1
               ? filteredMovies.map((movie) => (
                   <div className="z-0">
                     <Thumbnail key={movie.id} movie={movie} />
                   </div>
                 ))
-              : enterPressed && "Unfortunately movie not found"}
+              : ""}
+            {isReady && filteredMovies.length === 0
+              ? "Unfortunately movie not found"
+              : ""}
           </div>
         </div>
       </MuiModal>

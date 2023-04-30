@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import Slider from "@mui/material/Slider";
 import { VscClose } from "react-icons/vsc";
@@ -7,12 +7,20 @@ interface Props {
   filterYear: number[];
   setFilterYear: React.Dispatch<React.SetStateAction<number[]>>;
   handleSearch: () => void;
+  isFilter: boolean;
+  setIsFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Filter = ({ filterYear, setFilterYear, handleSearch }: Props) => {
+const Filter = ({
+  filterYear,
+  setFilterYear,
+  handleSearch,
+  isFilter,
+  setIsFilter,
+}: Props) => {
   const [showFilter, setShowFilter] = useState(false);
   const [sliderValue, setSliderValue] = useState([0, 100]);
-  const [isFilterApply, setIsFilterApply] = useState(false);
+  const isMountAndFirstRenderOver = useRef(4);
 
   const handleChange = (
     event: Event,
@@ -34,24 +42,40 @@ const Filter = ({ filterYear, setFilterYear, handleSearch }: Props) => {
         Math.max(newValue[1], sliderValue[0] + 5),
       ]);
     }
-    setFilterYear([
-      Math.floor(sliderValue[0] * 0.66 + 1957),
-      Math.floor(sliderValue[1] * 0.66 + 1957),
-    ]);
   };
 
   const handleApplyClick = () => {
-    setIsFilterApply(true);
+    setIsFilter(true);
     setShowFilter(false);
     handleSearch();
   };
 
   const handleDeleteAppliedFilter = () => {
-    setIsFilterApply(false);
+    setIsFilter(false);
     setSliderValue([0, 100]);
-    setFilterYear([1957, 2023]);
-    handleSearch();
   };
+
+  useEffect(() => {
+    if (isMountAndFirstRenderOver.current > 1) {
+      console.log(isMountAndFirstRenderOver.current);
+      isMountAndFirstRenderOver.current -= 1;
+      return;
+    }
+    setFilterYear([
+      Math.floor(sliderValue[0] * 0.66 + 1957),
+      Math.floor(sliderValue[1] * 0.66 + 1957),
+    ]);
+  }, [sliderValue]);
+
+  useEffect(() => {
+    if (isMountAndFirstRenderOver.current >= 1) {
+      console.log(isMountAndFirstRenderOver.current);
+      isMountAndFirstRenderOver.current -= 1;
+      return;
+    }
+
+    if (!showFilter) handleSearch();
+  }, [filterYear]);
 
   return (
     <>
@@ -66,7 +90,7 @@ const Filter = ({ filterYear, setFilterYear, handleSearch }: Props) => {
           {showFilter ? <BsChevronUp /> : <BsChevronDown />}
         </div>
         {/* Applied Filter year  */}
-        {isFilterApply && (
+        {isFilter && (
           <div className="flex items-center gap-1 bg-white text-black p-2 rounded">
             <p className="">
               {filterYear[0]}-{filterYear[1]}
