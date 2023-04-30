@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUserMoviesList } from "../features/userMoviesList/userMoviesListSlice";
 import SearchModal from "../components/Search/SearchModal";
-import Temp from "../components/Temp";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -74,7 +73,6 @@ const Home = ({
       <Header setShowSearchModal={setShowSearchModal} />
       <main>
         <ImageSlider slides={topRated} />
-        <Temp />
         <section className="pl-4 mb-14">
           <Row title="Trending Now" movies={trendingNow} id="trending-movies" />
           <Row title="Top Rated" movies={topRated} id="top-rated-movies" />

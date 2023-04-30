@@ -118,16 +118,24 @@ const SearchModal = ({ setShowSearchModal, allMovies }: Props) => {
           <div className="mx-6 my-10 flex flex-wrap gap-5 items-center justify-center">
             {!isReady && enterPressed && (
               <>
-                <Skeleton
-                  variant="rounded"
-                  sx={{ bgcolor: "grey.700" }}
-                  className="h-28 min-w-[180px] sm:h-36 sm:min-w-[230px]"
-                />
-                <Skeleton
-                  variant="rounded"
-                  sx={{ bgcolor: "grey.700" }}
-                  className="h-28 min-w-[180px] sm:h-36 sm:min-w-[230px]"
-                />
+                <div className="h-28 w-[180px] sm:h-36 sm:w-[230px]">
+                  <Skeleton
+                    variant="rounded"
+                    sx={{ bgcolor: "grey.700" }}
+                    className="!h-full !w-full"
+                    width="100%"
+                    height="100%"
+                  />
+                </div>
+                <div className="h-28 w-[180px] sm:h-36 sm:w-[230px]">
+                  <Skeleton
+                    variant="rounded"
+                    sx={{ bgcolor: "grey.700" }}
+                    className="!h-full !w-full"
+                    width="100%"
+                    height="100%"
+                  />
+                </div>
               </>
             )}
 

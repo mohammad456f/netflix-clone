@@ -199,7 +199,9 @@ const Modal = () => {
                 <Skeleton
                   variant="rounded"
                   sx={{ bgcolor: "grey.700" }}
-                  className="absolute w-full h-full"
+                  className="!absolute !w-full !h-full"
+                  width="100%"
+                  height="100%"
                 />
               )}
 
