@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: Record<string, any>) {
   return (
     <Provider store={store}>
       <Component {...pageProps} />
