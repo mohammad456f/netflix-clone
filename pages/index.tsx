@@ -123,6 +123,14 @@ const Home = ({
 
 export default Home;
 
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${process.env.AUTH_TOKEN}`
+  }
+};
+
 export const getServerSideProps: GetServerSideProps = async () => {
   const [
     netflixOriginals,
@@ -134,14 +142,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
     romanceMovies,
     documentaries,
   ] = await Promise.all([
-    fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
-    fetch(requests.fetchTrending).then((res) => res.json()),
-    fetch(requests.fetchTopRated).then((res) => res.json()),
-    fetch(requests.fetchActionMovies).then((res) => res.json()),
-    fetch(requests.fetchComedyMovies).then((res) => res.json()),
-    fetch(requests.fetchHorrorMovies).then((res) => res.json()),
-    fetch(requests.fetchRomanceMovies).then((res) => res.json()),
-    fetch(requests.fetchDocumentaries).then((res) => res.json()),
+    fetch(requests.fetchNetflixOriginals, options).then((res) => res.json()),
+    fetch(requests.fetchTrending, options).then((res) => res.json()),
+    fetch(requests.fetchTopRated, options).then((res) => res.json()),
+    fetch(requests.fetchActionMovies, options).then((res) => res.json()),
+    fetch(requests.fetchComedyMovies, options).then((res) => res.json()),
+    fetch(requests.fetchHorrorMovies, options).then((res) => res.json()),
+    fetch(requests.fetchRomanceMovies, options).then((res) => res.json()),
+    fetch(requests.fetchDocumentaries, options).then((res) => res.json()),
   ]);
 
   return {
