@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from "next";
+import type {GetServerSideProps, GetStaticProps} from "next";
 import Head from "next/head";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -131,7 +131,7 @@ const options = {
   }
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const [
     netflixOriginals,
     trendingNow,
