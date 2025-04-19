@@ -1,4 +1,4 @@
-import type {GetServerSideProps, GetStaticProps} from "next";
+import type {GetStaticProps} from "next";
 import Head from "next/head";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -42,7 +42,6 @@ const Home = ({
   const userId = useSelector(
     (state: RootState) => state.loginStatus.value.userId
   );
-  const showModal = useSelector((state: RootState) => state.showModal.value);
   const userMoviesList = useSelector(
     (state: RootState) => state.userMoviesList.value
   );
@@ -60,7 +59,7 @@ const Home = ({
           .then((res) => res.json())
           .then((data) => dispatch(setUserMoviesList(data.movies)));
       };
-      fetchUserMovies();
+      fetchUserMovies().then(() => {});
     }
   }, [isLoggedIn]);
 
